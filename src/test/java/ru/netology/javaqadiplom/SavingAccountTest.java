@@ -29,4 +29,15 @@ public class SavingAccountTest {
 
         Assertions.assertEquals(expected, actual);
     }
+    @Test
+    public void shouldAddEqualToMaxBalance() {
+        SavingAccount account = new SavingAccount(2_000, 1_000, 10_000, 5);
+
+        account.add(8_000);
+
+        int expected = 10_000;
+        int actual = account.getBalance();
+
+        Assertions.assertEquals(expected, actual);
+    }
 }
