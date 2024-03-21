@@ -18,4 +18,15 @@ public class SavingAccountTest {
 
         Assertions.assertEquals(2_000 + 3_000, account.getBalance());
     }
+    @Test
+    public void shouldNotPayWhenLessMinBalance() {
+        SavingAccount account = new SavingAccount(2_000, 1_500, 10_000, 5);
+
+        account.pay(1_000);
+
+        int expected = 2_000;
+        int actual = account.getBalance();
+
+        Assertions.assertEquals(expected, actual);
+    }
 }
