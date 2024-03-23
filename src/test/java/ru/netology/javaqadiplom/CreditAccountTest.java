@@ -19,41 +19,40 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void balanceAboveLimitAfterPurchase() {
+    public void payBalanceAboveLimitAfterPurchase() {
         CreditAccount account= new CreditAccount(
-                5_002,
+                1_000,
                 5_000,
                 15
         );
 
-        account.pay(1);
+        account.pay(5_999);
 
-        Assertions.assertEquals(5_001,account.getBalance());
+        Assertions.assertEquals(-4_999,account.getBalance());
     }
 
     @Test
-    public void balanceAfterPurchaseEqualLimit() {
+    public void payBalanceAfterPurchaseEqualLimit() {
         CreditAccount account= new CreditAccount(
-                5_001,
+                1_000,
                 5_000,
                 15
         );
 
-        account.pay(1);
+        account.pay(6_000);
 
-        Assertions.assertEquals(5_000,account.getBalance());
+        Assertions.assertEquals(-5_000,account.getBalance());
     }
     @Test
-    public void balanceLessThanLimitAfterPurchase() {
+    public void payBalanceLessThanLimitAfterPurchase() {
         CreditAccount account= new CreditAccount(
-                5_000,
+                1_000,
                 5_000,
                 15
         );
 
-        account.pay(1);
         boolean expected = false;
-        boolean actual = account.pay(4_999);
+        boolean actual = account.pay(6_001);
 
         Assertions.assertEquals(expected, actual);
     }
@@ -121,16 +120,18 @@ public class CreditAccountTest {
         Assertions.assertEquals(-50,account.yearChange());
     }
 
-//    @Test
-//    public void calculationOfInterest() {
-//        CreditAccount account = new CreditAccount(
-//                -1_000,
-//                5_000,
-//                -5
-//        );
-//
-//        Assertions.assertThrows(IllegalArgumentException.class,() -> {
-//            account.yearChange();
-//        });
-//    }
+    @Test
+    public void shouldShowExceptionRate() {
+
+        Assertions.assertThrows(IllegalArgumentException.class,() -> {
+            new CreditAccount(1000,1000,-5);
+        });
+    }
+    @Test
+    public void shouldShowExceptionInitialBalanceAndCreditLimit() {
+
+        Assertions.assertThrows(IllegalArgumentException.class,() -> {
+            new CreditAccount(-6_000,-5_000,5);
+        });
+    }
 }
