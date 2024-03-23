@@ -19,7 +19,7 @@ public class SavingAccount extends Account {
      * @param maxBalance - максимальный баланс
      * @param rate - неотрицательное число, ставка в процентах годовых на остаток
      */
-    public SavingAccount(int initialBalance, int minBalance, int maxBalance, int rate) {
+    public SavingAccount(int initialBalance, int minBalance, int maxBalance, int rate) throws IllegalArgumentException {
         if (rate < 0) {
             throw new IllegalArgumentException(
               "Накопительная ставка не может быть отрицательной, а у вас: " + rate
@@ -45,8 +45,8 @@ public class SavingAccount extends Account {
         if (amount <= 0) {
             return false;
         }
-        balance = balance - amount;
         if (balance > minBalance) {
+            balance = balance - amount;
             return true;
         } else {
             return false;
@@ -70,7 +70,7 @@ public class SavingAccount extends Account {
             return false;
         }
         if (balance + amount < maxBalance) {
-            balance = amount;
+            balance = balance + amount;
             return true;
         } else {
             return false;
@@ -82,11 +82,16 @@ public class SavingAccount extends Account {
      * счёт не будет меняться год. Сумма процентов приводится к целому
      * числу через отбрасывание дробной части (так и работает целочисленное деление).
      * Пример: если на счёте 200 рублей, то при ставке 15% ответ должен быть 30.
+     *
      * @return
      */
     @Override
     public int yearChange() {
-        return balance / 100 * rate;
+        if (balance <= 0) {
+            return 0;
+        } else {
+            return balance / 100 * rate;
+        }
     }
 
     public int getMinBalance() {
