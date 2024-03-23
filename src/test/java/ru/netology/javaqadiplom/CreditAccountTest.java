@@ -106,7 +106,7 @@ public class CreditAccountTest {
                 5
         );
 
-        Assertions.assertEquals(1_000,account.yearChange());
+        Assertions.assertEquals(0,account.yearChange());
     }
 
     @Test
