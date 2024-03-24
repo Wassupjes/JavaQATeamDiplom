@@ -44,18 +44,18 @@ public class CreditAccountTest {
         Assertions.assertEquals(-5_000,account.getBalance());
     }
     @Test
-    public void payBalanceLessThanLimitAfterPurchase() {
+    public void payBalanceAfterPurchaseAfterLimit() {
         CreditAccount account= new CreditAccount(
                 1_000,
                 5_000,
                 15
         );
 
-        boolean expected = false;
-        boolean actual = account.pay(6_001);
+        account.pay(6_001);
 
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(1_000,account.getBalance());
     }
+
     @Test
     public void replenishmentBalanceGreaterThanZero() {
         CreditAccount account = new CreditAccount(
