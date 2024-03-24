@@ -128,10 +128,17 @@ public class CreditAccountTest {
         });
     }
     @Test
-    public void shouldShowExceptionInitialBalanceAndCreditLimit() {
+    public void shouldShowExceptionInitialBalance() {
 
         Assertions.assertThrows(IllegalArgumentException.class,() -> {
-            new CreditAccount(-6_000,-5_000,5);
+            new CreditAccount(-1,5_000,5);
+        });
+    }
+    @Test
+    public void shouldShowExceptionCreditLimit() {
+
+        Assertions.assertThrows(IllegalArgumentException.class,() -> {
+            new CreditAccount(6_000,-1,5);
         });
     }
 }
