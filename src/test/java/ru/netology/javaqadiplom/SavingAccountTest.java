@@ -63,4 +63,13 @@ public class SavingAccountTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> new SavingAccount(2_000, -1_000, 10_000, 5));
         Assertions.assertThrows(IllegalArgumentException.class, () -> new SavingAccount(2_000, 11_000, 10_000, 5));
     }
+    @Test
+    public void shouldCountRate() {
+        SavingAccount account = new SavingAccount(50, 0, 10_000, 10);
+
+        int expected = 5;
+        int actual = account.yearChange();
+
+        Assertions.assertEquals(expected, actual);
+    }
 }
