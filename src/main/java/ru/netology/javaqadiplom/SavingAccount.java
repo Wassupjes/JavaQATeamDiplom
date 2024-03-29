@@ -97,6 +97,7 @@ public class SavingAccount extends Account {
         if (amount <= 0) {
             return false;
         }
+
         if (balance + amount <= maxBalance) {
             balance = balance + amount;
             return true;
@@ -115,7 +116,13 @@ public class SavingAccount extends Account {
      */
     @Override
     public int yearChange() {
-        return balance * rate / 100 ;
+
+        if (balance <= 0) {
+            return 0;
+        } else {
+            return balance / 100 * rate;
+        }
+
     }
 
 
